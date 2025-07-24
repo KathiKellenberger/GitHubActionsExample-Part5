@@ -32,6 +32,10 @@ jobs:
                   display: Optional - Additional note(s)
                   type: textarea
                   description: Additional notes on why this selection was made.
+                  with:
+          ngrok-authtoken: ${{ secrets.NGROKTOKEN }}
+          notifier-slack-enabled: "false"
+          notifier-discord-enabled: "false"          
     outputs:
         runtime-options: ${{ steps.interactive-inputs.outputs.runtime-options }}
     
