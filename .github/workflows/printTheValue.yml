@@ -1,0 +1,38 @@
+name: Print the value
+ 
+# Controls when the workflow will run, in this case manually
+on: workflow_dispatch
+
+jobs:
+
+  interactive-inputs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Example Interactive Inputs Step
+        id: interactive-inputs
+        uses: boasiHQ/interactive-inputs@v2
+        with:
+          timeout: 300
+          title: 'We need you to select your desired flow(s) to execute'
+          interactive: |
+            fields:
+              - label: runtime-options
+                properties:
+                  description: Below are the available flows that can be executed
+                  display: Select the flow(s) to execute
+                  type: multiselect
+                  choices: 
+                    ["option-a", "option-b", "option-c"]
+                  required: true
+              - label: notes
+                properties:
+                  display: Optional - Additional note(s)
+                  type: textarea
+                  description: Additional notes on why this selection was made.
+    outputs:
+        runtime-options: ${{ steps.interactive-inputs.outputs.runtime-options }}
+    
+       
